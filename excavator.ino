@@ -1,5 +1,6 @@
 
 
+
 #include <SPI.h>  
 #include "RF24.h"
 #include <nRF24L01.h>
@@ -21,14 +22,12 @@ struct package
 };
 
 byte addresses[][6] = {"0"}; 
-int OUT1 = 2;
-int OUT2 = 4;
-int EnA=3;
-int OUT3 = ;
-int OUT4 = ;
-int EnB=9;
-int servo_pin = 5;
-int servo1_pin = 6;
+int OUT1 = 5;
+int OUT2 = 6;
+int OUT3 =9 ;
+int OUT4 = 10;
+int servo_pin = 3;
+int servo1_pin = 4;
 
 
 typedef struct package Package;
@@ -53,8 +52,7 @@ void setup()
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
   pinMode(OUT4, OUTPUT);
-  pinMode(EnA, OUTPUT);
-  pinMode(EnB, OUTPUT);
+
   servo.attach (servo_pin) ; 
   servo1.attach (servo1_pin ) ; 
   analogWrite(OUT1, 0);
@@ -94,20 +92,20 @@ void loop()
   
 
     if(X > 524 && Y < 524 && Y > 500){
-      analogWrite(OUT3, 1);
+      analogWrite(OUT3, foward);
       analogWrite(OUT4, 0);
-      analogWrite(EnA, foward);
-      analogWrite(OUT1,1 );
+     
+      analogWrite(OUT1,foward );
       analogWrite(OUT2, 0);
-      analogWrite(EnB, foward);
+ 
         
     }else if(X < 500 && Y < 524 && Y > 500){
-      analogWrite(OUT4, 1);
+      analogWrite(OUT4,backward);
       analogWrite(OUT3, 0);
-      analogWrite(EnA,  backward);
-      analogWrite(OUT2,1);
+      
+      analogWrite(OUT2,backward);
       analogWrite(OUT1, 0);
-       analogWrite(EnB,  backward);
+    
       
     }else if(X < 524 && X > 500 && Y < 524 && Y > 500){
       analogWrite(OUT4, 0);
@@ -117,52 +115,52 @@ void loop()
       
     }else if(X < 524 && X > 500 && Y > 524){
       analogWrite(OUT4, 0);
-      analogWrite(OUT3, 1);
-       analogWrite(EnA,  left);
-      analogWrite(OUT2, 1);
+      analogWrite(OUT3,left);
+      
+      analogWrite(OUT2, left);
       analogWrite(OUT1, 0);
-      analogWrite(EnB,  left);
+  
       
     }else if(X < 524 && X > 500 && Y < 500){
-      analogWrite(OUT4, 1);
+      analogWrite(OUT4, right);
       analogWrite(OUT3, 0);
-      analogWrite(EnA,  right);
+     
       analogWrite(OUT2, 0);
-      analogWrite(OUT1, 1);
-      analogWrite(EnB, right);
+      analogWrite(OUT1, right);
+     
     
     }else if(X > 524 && Y > 524){
-      analogWrite(OUT3, 1);
+      analogWrite(OUT3, foward);
       analogWrite(OUT4, 0);
-      analogWrite(EnA, foward);
-      analogWrite(OUT1, 1);
+     
+      analogWrite(OUT1, foward-right);
       analogWrite(OUT2, 0);
-      analogWrite(EnB, foward-right);
+   
     
     }else if(X > 524 && Y < 500){
-      analogWrite(OUT3, 1);
+      analogWrite(OUT3, foward-left);
       analogWrite(OUT4, 0);
-      analogWrite(EnA, foward-left);
-      analogWrite(OUT1, 1);
+     
+      analogWrite(OUT1, foward);
       analogWrite(OUT2, 0);
-      analogWrite(EnB, foward);
+ 
  
     }else if(X < 500 && Y > 524){
-      analogWrite(OUT4, 1);
+      analogWrite(OUT4, backward);
       analogWrite(OUT3, 0);
-         analogWrite(EnA, backward);
-      analogWrite(OUT2, 1);
+       
+      analogWrite(OUT2, backward-right);
       analogWrite(OUT1, 0);
-      analogWrite(EnB, backward-right);
+
       
     }else if(X < 500 && Y < 500)
     {
-      analogWrite(OUT4, 1);
+      analogWrite(OUT4, backward-left);
       analogWrite(OUT3, 0);
-        analogWrite(EnA, backward-left);
-      analogWrite(OUT2, 1);
+       
+      analogWrite(OUT2, backward);
       analogWrite(OUT1, 0);
-       analogWrite(EnB, backward);
+     
       
     }
      else if(X1 > 524 && Y1 < 524 && Y1 > 500)
